@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أوركيد سبا | Orchid Spa — منظومة التجارة الإلكترونية والتسويق الإبداعي المتكامل | KAAF Group</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Cairo, Playfair Display & IBM Plex Sans Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kaaf: {
+                            blue: '#0A4C86',
+                            blueLight: '#1C75C8',
+                            blueDeep: '#05233E',
+                            cyan: '#06B6D4',
+                            cyanLight: '#67E8F9',
+                            dark: '#030812',
+                            darkSlate: '#0a0d18',
+                            cardBg: '#120d1e',
+                            border: '#2c1e44',
+                            purple: '#4a154b',
+                            purpleDeep: '#230b2c',
+                            purpleLight: '#c084fc',
+                            plum: '#581c87',
+                            plumDark: '#1b0b2b',
+                            roseMuted: '#f43f5e',
+                            gold: '#D4AF37',
+                            goldLight: '#F5DE88'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        ibm: ['IBM Plex Sans Arabic', 'sans-serif'],
+                        playfair: ['Playfair Display', 'serif']
+                    },
+                    boxShadow: {
+                        'glow-purple': '0 0 40px -10px rgba(124, 58, 237, 0.65)',
+                        'glow-plum': '0 0 35px -8px rgba(192, 132, 252, 0.45)',
+                        'glow-gold': '0 0 40px -10px rgba(212, 175, 55, 0.5)',
+                        'web-card': '0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+            background-color: #05030a;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fullscreen Interactive Canvas */
+        #interactive-bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        /* Top Accent Luxury Ribbon */
+        .kaaf-luxury-ribbon {
+            background: linear-gradient(90deg, 
+                #581c87 0%, 
+                #c084fc 25%, 
+                #0A4C86 50%, 
+                #D4AF37 75%, 
+                #7e22ce 100%
+            );
+            height: 4px;
+        }
+
+        /* Purple Glassmorphic Cards */
+        .web-card-blue, .web-card-purple {
+            background: linear-gradient(135deg, rgba(35, 14, 50, 0.85) 0%, rgba(15, 6, 24, 0.95) 100%);
+            border: 1px solid rgba(192, 132, 252, 0.25);
+            backdrop-filter: blur(16px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .web-card-blue:hover, .web-card-purple:hover {
+            border-color: rgba(192, 132, 252, 0.75);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 45px -10px rgba(88, 28, 135, 0.6), 0 0 25px rgba(192, 132, 252, 0.25);
+        }
+
+        .web-card-cyan {
+            background: linear-gradient(135deg, rgba(45, 18, 64, 0.9) 0%, rgba(18, 7, 28, 0.96) 100%);
+            border: 1px solid rgba(216, 180, 254, 0.4);
+            backdrop-filter: blur(16px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .web-card-cyan:hover {
+            border-color: rgba(216, 180, 254, 0.85);
+            box-shadow: 0 25px 45px -10px rgba(168, 85, 247, 0.45);
+        }
+
+        .web-card-gold {
+            background: linear-gradient(135deg, rgba(38, 22, 54, 0.9) 0%, rgba(16, 8, 25, 0.96) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            backdrop-filter: blur(16px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .web-card-gold:hover {
+            border-color: rgba(212, 175, 55, 0.85);
+            box-shadow: 0 25px 45px -10px rgba(212, 175, 55, 0.35);
+        }
+
+        /* Floating living icons */
+        @keyframes float-alive-left {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                box-shadow: 0 10px 25px -5px rgba(10, 76, 134, 0.6), 0 0 20px rgba(30, 117, 198, 0.4);
+            }
+            50% {
+                transform: translateY(-8px) rotate(1deg);
+                box-shadow: 0 20px 35px -5px rgba(10, 76, 134, 0.85), 0 0 30px rgba(30, 117, 198, 0.65);
+            }
+        }
+
+        @keyframes float-alive-right {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.5), 0 0 20px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                transform: translateY(-8px) scale(1.04);
+                box-shadow: 0 20px 35px -5px rgba(37, 211, 102, 0.85), 0 0 32px rgba(37, 211, 102, 0.65);
+            }
+        }
+
+        .animate-floating-kaaf {
+            animation: float-alive-left 4s ease-in-out infinite;
+        }
+
+        .animate-floating-whatsapp {
+            animation: float-alive-right 4s ease-in-out infinite 0.7s;
+        }
+
+        /* Nav link underline marker */
+        .nav-link {
+            position: relative;
+            transition: color 0.2s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: #c084fc;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-kaaf-plum selection:text-white">
+
+    <!-- Fullscreen Interactive Canvas Layer -->
+    <canvas id="interactive-bg-canvas"></canvas>
+
+    <!-- FLOATING KAAF GROUP LOGO BUTTON (BOTTOM LEFT) -->
+    <aside id="floating-kaaf-btn" class="fixed bottom-6 left-6 z-50">
+        <a href="https://kaafmarketing.sa/" target="_blank" rel="noopener noreferrer" title="مجموعة كاف | KAAF Group for Marketing, Software & Media Solutions" class="block w-14 h-14 rounded-full overflow-hidden border-2 border-kaaf-purpleLight/80 p-0.5 bg-black/90 animate-floating-kaaf transition-all duration-300 hover:scale-110 active:scale-95 group backdrop-blur-md hover:border-kaaf-purpleLight hover:shadow-glow-purple">
+            <img src="https://i.ibb.co/qLQcG9vr/Whats-App-Image-2026-08-26-at-11-29-58.jpg" alt="KAAF Group Logo" class="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-105">
+        </a>
+    </aside>
+
+    <!-- FLOATING WHATSAPP BUTTON (BOTTOM RIGHT) -->
+    <aside id="floating-wa-btn" class="fixed bottom-6 right-6 z-50">
+        <a href="https://wa.me/966558029554?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20KAAF%20Group%D8%8C%20%D9%86%D8%AD%D9%86%20%D8%A3%D9%88%D8%B1%D9%83%D9%8A%D8%AF%20%D8%B3%D8%A8%D8%A7%20%7C%20Orchid%20Spa%D8%8C%20%D9%86%D9%88%D8%AF%20%D9%85%D9%86%D8%A7%D9%82%D8%B4%D8%A9%20%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D9%85%D9%86%D8%B8%D9%88%D9%85%D8%A9%20%D9%85%D8%AA%D8%AC%D8%B1%20%D8%AD%D8%AC%D8%B2%20%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%B9%D9%8A%D8%AF%20%D9%88%D8%A7%D9%84%D8%AA%D8%B3%D9%88%D9%8A%D9%82" target="_blank" rel="noopener noreferrer" title="تواصل مباشر مع KAAF Group | Orchid Spa" class="w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center border-2 border-emerald-200/80 animate-floating-whatsapp transition-all duration-300 hover:scale-110 active:scale-95 group shadow-lg hover:shadow-emerald-500/50">
+            <i class="fa-brands fa-whatsapp text-3xl"></i>
+        </a>
+    </aside>
+
+    <!-- TOP WEBSITE NAVIGATION BAR -->
+    <header id="top-nav" class="sticky top-0 z-50 bg-[#07030d]/90 backdrop-blur-xl border-b border-kaaf-border/70 px-4 lg:px-12 py-3.5 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo & Orchid Spa Identity -->
+            <a href="https://kaafmarketing.sa/" target="_blank" class="flex items-center gap-3.5 group">
+                <div class="w-11 h-11 rounded-2xl overflow-hidden border border-kaaf-purpleLight/50 p-0.5 bg-black shrink-0 shadow-glow-purple transition-transform group-hover:scale-105">
+                    <img src="https://i.ibb.co/qLQcG9vr/Whats-App-Image-2026-08-26-at-11-29-58.jpg" alt="KAAF Group Logo" class="w-full h-full object-cover rounded-xl">
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-base font-black text-white tracking-wide font-ibm">KAAF Group</span>
+                        <span class="px-2 py-0.5 rounded-full bg-kaaf-plum/40 text-kaaf-purpleLight text-[10px] font-extrabold border border-kaaf-purpleLight/40">عرض خاص لـ Orchid Spa</span>
+                    </div>
+                    <p class="text-[11px] text-kaaf-purpleLight font-medium font-playfair tracking-wide">Orchid Spa Booking & Creative Ecosystem</p>
+                </div>
+            </a>
+
+            <!-- Desktop Website Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-gray-300">
+                <a href="#vision" class="nav-link hover:text-white">الرؤية التسويقية</a>
+                <a href="#booking-journey" class="nav-link hover:text-white">رحلة الحجز بسلة</a>
+                <a href="#services" class="nav-link hover:text-white">الخدمات الخمس</a>
+                <a href="#ecosystem" class="nav-link hover:text-white">منظومة العمل</a>
+                <a href="#timeline" class="nav-link hover:text-white">مراحل التنفيذ</a>
+                <a href="#packages" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-kaaf-plum via-kaaf-purple to-kaaf-purpleLight text-white font-black hover:brightness-110 shadow-sm transition border border-kaaf-purpleLight/40">الباقات والاستثمار</a>
+            </nav>
+
+            <!-- Mobile Contact Button -->
+            <div class="lg:hidden flex items-center gap-2">
+                <a href="https://wa.me/966558029554?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20KAAF%20Group%D8%8C%20%D9%86%D8%AD%D9%86%20%D8%A3%D9%88%D8%B1%D9%83%D9%8A%D8%AF%20%D8%B3%D8%A8%D8%A7%20%7C%20Orchid%20Spa" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-kaaf-plum to-emerald-600 text-white text-xs font-bold flex items-center gap-1.5">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>تواصل معنا</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTINUOUS WEBSITE CONTAINER -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-24">
+
+        <!-- ========================================================================= -->
+        <!-- 01 — HERO SECTION (PREMIUM E-COMMERCE & CREATIVE MARKETING PROPOSAL)      -->
+        <!-- ========================================================================= -->
+        <section id="hero" class="relative rounded-[32px] overflow-hidden p-8 sm:p-14 lg:p-20 bg-gradient-to-br from-kaaf-purpleDeep via-kaaf-darkSlate to-kaaf-dark border border-kaaf-border shadow-web-card text-white backdrop-blur-xl">
+            <div class="kaaf-luxury-ribbon absolute top-0 left-0 right-0"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <!-- Left Hero Details (7 Cols) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-kaaf-plum/30 border border-kaaf-purpleLight/40 text-kaaf-purpleLight text-xs font-bold font-ibm tracking-wide">
+                        <i class="fa-solid fa-spa text-kaaf-purpleLight"></i>
+                        <span>عرض استراتيجي مُصمم خصيصًا • KAAF Group × Orchid Spa</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs tracking-widest uppercase text-kaaf-purpleLight font-ibm font-bold">Proposal Prepared For:</span>
+                            <span class="text-2xl font-black font-playfair tracking-wide text-transparent bg-clip-text bg-gradient-to-l from-kaaf-purpleLight via-pink-200 to-white">Orchid Spa | أوركيد سبا</span>
+                        </div>
+
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
+                            أوركيد سبا… <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-l from-kaaf-purpleLight via-pink-200 to-purple-100">
+                                تجربة متكاملة تبدأ من أول انطباع
+                            </span>
+                        </h1>
+
+                        <p class="text-lg sm:text-xl font-bold text-purple-100/95 font-cairo leading-relaxed">
+                            «من منصة سلة فاخرة مخصصة لحجز مواعيد الخدمات، إلى محتوى إبداعي يبرز الدلال والاسترخاء، وحملات تسويقية تحوّل الاهتمام إلى حجوزات مؤكدة.»
+                        </p>
+                    </div>
+
+                    <p class="text-xs sm:text-sm font-playfair tracking-widest text-kaaf-purpleLight font-semibold uppercase">
+                        Service Booking Platform. Creative Content. Performance Marketing.
+                    </p>
+
+                    <p class="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl font-normal">
+                        يسر <strong>KAAF Group for Marketing, Software & Media Solutions</strong> تقديم هذا العرض الفني والتجاري المتكامل لـ <strong>أوركيد سبا (Orchid Spa)</strong>، لتدشين تجربة حجز رقمية فاخرة عبر منصة سلة مخصصة لحجز خدمات السبا والصالون، وصناعة محتوى إبداعي ملهم، وإدارة دقيقة للسوشيال ميديا وحملات الإعلانات وواتساب لتنمية الإقبال وتأكيد المواعيد بكفاءة.
+                    </p>
+
+                    <!-- Trust Bar -->
+                    <div class="pt-2 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <div class="p-3.5 rounded-2xl bg-black/60 border border-kaaf-border text-center">
+                            <span class="text-xs text-gray-400 block font-medium">الجهة المقدمة</span>
+                            <span class="text-sm font-black text-white font-ibm">KAAF Group</span>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-black/60 border border-kaaf-border text-center">
+                            <span class="text-xs text-gray-400 block font-medium">الجهة المستفيدة</span>
+                            <span class="text-sm font-black text-kaaf-purpleLight font-ibm">أوركيد سبا</span>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-black/60 border border-kaaf-border text-center">
+                            <span class="text-xs text-gray-400 block font-medium">طبيعة المنظومة</span>
+                            <span class="text-sm font-black text-kaaf-purpleLight font-ibm">Booking Hub + Growth</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Luxury Visual (5 Cols) -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="w-full max-w-sm space-y-4 p-6 rounded-3xl bg-kaaf-cardBg/90 border border-kaaf-border shadow-2xl backdrop-blur-md">
+                        <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-3 h-3 rounded-full bg-kaaf-purpleLight animate-pulse"></span>
+                                <span class="text-xs font-black text-white">منصة حجز المواعيد الفاخرة</span>
+                            </div>
+                            <span class="text-[10px] text-kaaf-purpleLight font-mono font-bold">BOOKING HUB</span>
+                        </div>
+
+                        <!-- Card 1: Service Booking Store -->
+                        <div class="p-3.5 rounded-2xl bg-kaaf-plum/25 border border-kaaf-border space-y-1">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-calendar-check text-kaaf-purpleLight"></i>
+                                    متجر سلة لحجز المواعيد
+                                </span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-kaaf-plum/40 text-kaaf-purpleLight font-mono">Appointments</span>
+                            </div>
+                            <p class="text-[11px] text-gray-300">واجهة فاخرة لاختيار خدمات السبا، معرفة مدة وسعر كل جلسة، وتثبيت الموعد بيسر.</p>
+                        </div>
+
+                        <!-- Card 2: Creative & Social -->
+                        <div class="p-3.5 rounded-2xl bg-kaaf-plum/25 border border-kaaf-border space-y-1">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-pink-300"></i>
+                                    فريق كريتف وسوشيال ميديا
+                                </span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-pink-500/20 text-pink-300 font-mono">Content & Luxury</span>
+                            </div>
+                            <p class="text-[11px] text-gray-300">محتوى بصري هادئ وراقٍ يبرز رفاهية التجربة وأجواء الاسترخاء الفريدة في أوركيد سبا.</p>
+                        </div>
+
+                        <!-- Card 3: Performance & WhatsApp -->
+                        <div class="p-3.5 rounded-2xl bg-kaaf-plum/25 border border-kaaf-border space-y-1">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-bullhorn text-emerald-400"></i>
+                                    إعلانات وتذكير المواعيد
+                                </span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">Targeting & WA</span>
+                            </div>
+                            <p class="text-[11px] text-gray-300">جذب المهتمات بالعناية والجمال وتأكيد الحجوزات برسائل تذكيرية عبر واتساب.</p>
+                        </div>
+
+                        <div class="pt-2 text-center">
+                            <a href="#packages" class="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-gradient-to-r from-kaaf-plum via-purple-600 to-kaaf-purpleLight text-white font-black text-xs hover:brightness-110 shadow-glow-purple transition">
+                                <span>استعراض باقات الاستثمار والعرض المالي</span>
+                                <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 02 — STRATEGIC VISION & CUSTOMER JOURNEY                                  -->
+        <!-- ========================================================================= -->
+        <section id="vision" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full bg-kaaf-plum/30 text-kaaf-purpleLight font-black text-xs border border-kaaf-purpleLight/40">الرؤية التسويقية</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">من مجرد حضور رقمي إلى منظومة متكاملة لنمو أوركيد سبا</h2>
+                </div>
+                <span class="text-xs text-kaaf-purpleLight font-mono">Booking Growth Ecosystem</span>
+            </div>
+
+            <div class="web-card-blue rounded-3xl p-6 sm:p-10 shadow-web-card space-y-6">
+                <p class="text-base sm:text-lg text-slate-200 leading-relaxed font-medium">
+                    الهدف الأساسي لشراكتنا ليس مجرد نشر تصاميم عابرة على منصات التواصل، بل تأسيس <strong>منظومة متصلة ومترابطة</strong> تتمحور حول تحويل المهتمات إلى عميلات فعليات داخل أوركيد سبا عبر تحقيق 6 ركائز استراتيجية:
+                </p>
+
+                <!-- 6 Strategic Pillars Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-purpleLight font-bold text-xs">
+                            <span class="w-6 h-6 rounded-lg bg-kaaf-plum/40 flex items-center justify-center font-mono text-kaaf-purpleLight">01</span>
+                            <span>منصة حجز متخصصة على سلة</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            إنشاء متجر رقمي مصمم لحجز خدمات السبا والصالون، يوضح المدة والتفاصيل وخيارات الأوقات بسهولة بالغة.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-purpleLight font-bold text-xs">
+                            <span class="w-6 h-6 rounded-lg bg-kaaf-plum/40 flex items-center justify-center font-mono text-kaaf-purpleLight">02</span>
+                            <span>حضور متناسق على السوشيال ميديا</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            بناء هوية محتوى مميزة وجذابة تبرز تفاصيل العناية والاسترخاء وتصنع صلة عاطفية وثيقة مع الباحثات عن الدلال.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-purpleLight font-bold text-xs">
+                            <span class="w-6 h-6 rounded-lg bg-kaaf-plum/40 flex items-center justify-center font-mono text-kaaf-purpleLight">03</span>
+                            <span>فريق كريتف متخصص ومبتكر</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            تطوير أفكار وتوجهات بصرية ونصوص تسويقية نوعية تترجم روح العلامة وتتفوق على المنافسين في قطاع السبا.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-purpleLight font-bold text-xs">
+                            <span class="w-6 h-6 rounded-lg bg-kaaf-plum/40 flex items-center justify-center font-mono text-kaaf-purpleLight">04</span>
+                            <span>إعلانات مدفوعة لاستهداف الحجز</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            استهداف العميلات الأكثر اهتماماً بخدمات المساج، الحمام المغربي، العناية بالبشرة، والشعر، وتوجيههن للحجز المباشر.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-purpleLight font-bold text-xs">
+                            <span class="w-6 h-6 rounded-lg bg-kaaf-plum/40 flex items-center justify-center font-mono text-kaaf-purpleLight">05</span>
+                            <span>تأكيد المواعيد وحملات واتساب</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            إرسال تفاصيل الموعد، تنبيهات التذكير قبل الزيارة، وإعادة استقطاب العميلات بعروض وباقات موسمية مخصصة.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-purpleLight font-bold text-xs">
+                            <span class="w-6 h-6 rounded-lg bg-kaaf-plum/40 flex items-center justify-center font-mono text-kaaf-purpleLight">06</span>
+                            <span>ربط الجهود وتحسين التدفق</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            توحيد رحلة العميل من أول إعلان حتى إتمام الجلسة، وقراءة المؤشرات المتاحة لرفع معدل الحضور وتقليل الغياب.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- SPECIAL SECTION: SALLA APPOINTMENT BOOKING JOURNEY                         -->
+        <!-- ========================================================================= -->
+        <section id="booking-journey" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full bg-kaaf-plum/30 text-kaaf-purpleLight font-black text-xs border border-kaaf-purpleLight/40">المتجر المتخصص</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">فلسفة متجر سلة: منصة حجز خدمات السبا والصالون</h2>
+                </div>
+                <span class="text-xs text-pink-300 font-mono">Appointment Experience</span>
+            </div>
+
+            <!-- Detailed Salla Booking Architecture Card -->
+            <div class="web-card-blue rounded-3xl p-6 sm:p-10 shadow-web-card space-y-8">
+                <div class="space-y-3">
+                    <h3 class="text-xl sm:text-2xl font-black text-white font-playfair flex items-center gap-2.5">
+                        <i class="fa-solid fa-calendar-days text-kaaf-purpleLight"></i>
+                        <span>تحويل واجهة سلة من متجر منتجات تقليدي إلى محطة حجز مواعيد راقية</span>
+                    </h3>
+                    <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+                        لا يحتاج أوركيد سبا إلى متجر إلكتروني نمطي لعرض وبيع السلع؛ بل يحتاج إلى <strong>بوابة حجز رقمية متقنة</strong> تضع كل خدمة من خدمات السبا والصالون كخيار قابل للحجز بأزرار واضحة مثل <strong>«اختاري خدمتك»</strong> و<strong>«احجزي موعدك الآن»</strong> مع إبراز مدة الجلسة، تفاصيلها، والمزايا المصاحبة لها.
+                    </p>
+                </div>
+
+                <!-- 5 Steps Booking Lifecycle Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2">
+                        <span class="w-8 h-8 rounded-full bg-kaaf-plum/50 text-kaaf-purpleLight font-bold flex items-center justify-center mx-auto text-xs">01</span>
+                        <div class="text-xs font-black text-white">اختيار الخدمة</div>
+                        <p class="text-[11px] text-gray-400">تصفح تصنيفات خدمات المساج، العناية بالبشرة، البديكير، والحمام المغربي.</p>
+                        <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-purple-900/40 text-purple-200">«اختاري خدمتك»</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2">
+                        <span class="w-8 h-8 rounded-full bg-kaaf-plum/50 text-kaaf-purpleLight font-bold flex items-center justify-center mx-auto text-xs">02</span>
+                        <div class="text-xs font-black text-white">الاطلاع على التفاصيل</div>
+                        <p class="text-[11px] text-gray-400">معرفة مدة الجلسة (مثال: 60 دقيقة)، نوع الزيوت، والمزايا المشمولة والسعر.</p>
+                        <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-purple-900/40 text-purple-200">المدة والوصف</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2">
+                        <span class="w-8 h-8 rounded-full bg-kaaf-plum/50 text-kaaf-purpleLight font-bold flex items-center justify-center mx-auto text-xs">03</span>
+                        <div class="text-xs font-black text-white">تحديد الموعد المتاح</div>
+                        <p class="text-[11px] text-gray-400">اختيار التاريخ والوقت المفضل وفق الأوقات التشغيلية وجدول المواعيد.</p>
+                        <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-purple-900/40 text-purple-200">التقويم والوقت</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2">
+                        <span class="w-8 h-8 rounded-full bg-kaaf-plum/50 text-kaaf-purpleLight font-bold flex items-center justify-center mx-auto text-xs">04</span>
+                        <div class="text-xs font-black text-white">إدخال البيانات والتأكيد</div>
+                        <p class="text-[11px] text-gray-400">تسجيل بيانات العميل بدقة وتحديد رغبات الجلسة لتجهيز استقبالها.</p>
+                        <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-purple-900/40 text-purple-200">«احجزي موعدك»</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2">
+                        <span class="w-8 h-8 rounded-full bg-emerald-500/30 text-emerald-300 font-bold flex items-center justify-center mx-auto text-xs">05</span>
+                        <div class="text-xs font-black text-white">تثبيت الحجز والإشعار</div>
+                        <p class="text-[11px] text-gray-400">إشعار فوري بالحجز للعميلة ولإدارة السبا لترتيب أخصائية الخدمة.</p>
+                        <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-400">تأكيد الموعد</span>
+                    </div>
+                </div>
+
+                <!-- Technical Transparency Disclaimer Box -->
+                <div class="p-5 rounded-2xl bg-black/70 border border-kaaf-gold/40 text-xs text-slate-300 leading-relaxed space-y-2">
+                    <div class="flex items-center gap-2 text-kaaf-goldLight font-bold text-sm">
+                        <i class="fa-solid fa-triangle-exclamation text-kaaf-gold"></i>
+                        <span>توضيح تقني مهم بخصوص آليات الحجز على منصة سلة:</span>
+                    </div>
+                    <p class="text-gray-300">
+                        • منصة سلة مصممة في الأصل كمتجر إلكتروني للمنتجات؛ لذا فإن توفير وظائف حجز المواعيد المتقدمة (مثل اختيار التاريخ بالساعة والتقويم التفاعلي) يعتمد على استخدام تطبيقات الحجز المعتمدة في متجر تطبيقات سلة (Salla App Store) أو حلول التكامل البرمجية المساندة. <br>
+                        • تقوم KAAF بدراسة الباقة المعتمدة للمتجر، وتهيئة نماذج الخدمات، وربط التطبيق الأنسب لجدولة المواعيد وفق ما تتيحه سلة ومزود خدمة الحجز، دون افتراض وجود أي ميزة برمجية قبل فحص ملاءمتها الفنية والتأكد من إمكانية تنفيذها باحترافية.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 03 — WHAT WE DELIVER: 5 CORE SERVICES                                     -->
+        <!-- ========================================================================= -->
+        <section id="services" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full bg-kaaf-plum/30 text-kaaf-purpleLight font-black text-xs border border-kaaf-purpleLight/40">ماذا سنقدم؟</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">الخدمات الأساسية في المنظومة (What We Deliver)</h2>
+                </div>
+                <span class="text-xs text-gray-400 font-mono">5 Comprehensive Pillars</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Service 1: Salla Appointment Store -->
+                <div class="web-card-blue p-7 rounded-3xl space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-lg bg-kaaf-plum/40 text-kaaf-purpleLight font-mono font-bold flex items-center justify-center text-xs">01</span>
+                                <h3 class="text-base font-black text-white">تأسيس متجر سلة لحجز المواعيد</h3>
+                            </div>
+                            <i class="fa-solid fa-calendar-check text-kaaf-purpleLight text-lg"></i>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold text-pink-300 uppercase tracking-wider block">Service Booking Platform on Salla</span>
+                        <ul class="space-y-2.5 text-xs text-gray-300">
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>إنشاء وتهيئة متجر سلة ليكون منصة متخصصة لحجز مواعيد السبا.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>تصميم وتنسيق الواجهة بأسلوب فاخر يبرز فخامة وهدوء أوركيد سبا.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>إبراز الخدمات كخيارات قابلة للحجز المباشر (مدة الجلسة، السعر، والتفاصيل).</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>تضمين أزرار واضحة ومشجعة مثل «اختاري خدمتك» و«احجزي موعدك».</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>ربط وتهيئة تطبيق أو أداة الحجز المتاحة ضمن منظومة سلة.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>إعداد صفحات الباقات الخاصة، والسياسات، وتعليمات ما قبل الجلسات.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>فحص رحلة الحجز بدقة عبر شاشات الجوال لضمان أقصى درجات السهولة.</span></li>
+                        </ul>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 text-[10px] text-gray-400">
+                        * ملحوظة: لا تشمل الخدمة رسوم اشتراك سلة، أو تكاليف تطبيقات الحجز الخارجية المدفوعة، أو بوابات الدفع الإلكتروني إلا إذا تم الاتفاق عليها صراحة.
+                    </div>
+                </div>
+
+                <!-- Service 2: Social Media Management -->
+                <div class="web-card-blue p-7 rounded-3xl space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-lg bg-kaaf-plum/40 text-kaaf-purpleLight font-mono font-bold flex items-center justify-center text-xs">02</span>
+                                <h3 class="text-base font-black text-white">إدارة السوشيال ميديا</h3>
+                            </div>
+                            <i class="fa-solid fa-hashtag text-kaaf-purpleLight text-lg"></i>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold text-pink-300 uppercase tracking-wider block">A Consistent, Premium Brand Presence</span>
+                        <ul class="space-y-2.5 text-xs text-gray-300">
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>وضع توجه للمحتوى ينسجم تماماً مع شخصية وفخامة أوركيد سبا.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>إعداد أفكار المحتوى الإبداعي وصياغة التقويم التحريري المسبق.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>تصميم منشورات إبداعية متناسقة بصرياً مع الهوية المعتمدة.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>إبراز تفاصيل الخدمات، جودة الزيوت، وأجواء الاسترخاء الفريدة.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>كتابة نصوص ترويجية مؤثرة توجه المتابعات مباشرة نحو حجز الموعد.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>الحفاظ على اتساق الهوية عبر المنصات الاجتماعية المتفق عليها.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>مراجعة المواد التحريرية والتصاميم قبل النشر وتحسينها باستمرار.</span></li>
+                        </ul>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 text-[10px] text-gray-400">
+                        * يتم تثبيت قنوات النشر والكميات النهائية ضمن وثيقة نطاق العمل التفصيلي (Scope of Work).
+                    </div>
+                </div>
+
+                <!-- Service 3: Creative Team -->
+                <div class="web-card-blue p-7 rounded-3xl space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-lg bg-kaaf-plum/40 text-kaaf-purpleLight font-mono font-bold flex items-center justify-center text-xs">03</span>
+                                <h3 class="text-base font-black text-white">فريق كريتف متخصص</h3>
+                            </div>
+                            <i class="fa-solid fa-palette text-kaaf-purpleLight text-lg"></i>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold text-pink-300 uppercase tracking-wider block">A Creative Team Behind Every Campaign</span>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            تستفيد أوركيد سبا من عقول إبداعية تعمل كشريك استراتيجي لتطوير مفاهيم الحملات، وتنسيق الألوان، وصياغة الرسائل التي تخاطب الباحثات عن الرفاهية والهدوء.
+                        </p>
+                        <!-- Creative Flow Cycle -->
+                        <div class="space-y-2 pt-1 text-[11px] text-gray-300">
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-black/40 border border-white/5">
+                                <span class="w-5 h-5 rounded-full bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center text-[10px] font-bold">1</span>
+                                <span><strong>Research:</strong> تحليل هوية السبا وجمهور العناية الفاخرة.</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-black/40 border border-white/5">
+                                <span class="w-5 h-5 rounded-full bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center text-[10px] font-bold">2</span>
+                                <span><strong>Creative Direction:</strong> إقرار التوجه الفني واللوني والنبرة الصوتية.</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-black/40 border border-white/5">
+                                <span class="w-5 h-5 rounded-full bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center text-[10px] font-bold">3</span>
+                                <span><strong>Production & Assets:</strong> إنتاج التصاميم والمواد الإعلانية الرقمية.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 text-[10px] text-gray-400">
+                        * العمل يتم عن بُعد لتطوير المواد الرقمية؛ ولا يشمل التصوير الميداني أو فرق الإنتاج الموقعي إلا بترتيب مستقل.
+                    </div>
+                </div>
+
+                <!-- Service 4: Paid Campaigns -->
+                <div class="web-card-blue p-7 rounded-3xl space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-lg bg-kaaf-plum/40 text-kaaf-purpleLight font-mono font-bold flex items-center justify-center text-xs">04</span>
+                                <h3 class="text-base font-black text-white">الحملات الإعلانية على السوشيال ميديا</h3>
+                            </div>
+                            <i class="fa-solid fa-chart-pie text-kaaf-purpleLight text-lg"></i>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold text-pink-300 uppercase tracking-wider block">Paid Social Campaigns for Bookings</span>
+                        <ul class="space-y-2.5 text-xs text-gray-300">
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>إعداد وبناء الحملات على المنصات الأنسب لجمهور ونشاط السبا.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>تحديد أهداف الحملات: جذب الحجوزات، التفاعل، وزيارة بوابة المواعيد.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>صياغة الإعلانات والنصوص الترويجية بالتعاون مع الفريق الإبداعي.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>المتابعة اليومية للأداء وتحليل مؤشرات التكلفة والوصول.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>تحسين الحملات المستمر وإعادة توجيه الإنفاق نحو الجمهور الأكثر حجزاً.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i> <span>إعداد ملخصات دورية وتقارير توضح حركة الأداء والتوصيات.</span></li>
+                        </ul>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 text-[10px] text-gray-400">
+                        * الميزانية الإعلانية المدفوعة للمنصات تمول من العميل بشكل مباشر ومستقل عن أتعاب الإدارة.
+                    </div>
+                </div>
+
+                <!-- Service 5: WhatsApp Engagement -->
+                <div class="web-card-blue p-7 rounded-3xl space-y-4 flex flex-col justify-between md:col-span-2 lg:col-span-2">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-mono font-bold flex items-center justify-center text-xs">05</span>
+                                <h3 class="text-base font-black text-white">حملات وتأكيدات واتساب التسويقية</h3>
+                            </div>
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold text-emerald-300 uppercase tracking-wider block">WhatsApp Booking & Customer Engagement</span>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-300">
+                            <ul class="space-y-2.5">
+                                <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5"></i> <span>إعداد رسائل تسويقية لجمهور العميلات اللاتي وافقن على استقبال الرسائل.</span></li>
+                                <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5"></i> <span>تصميم رسائل جذابة تنبض بفخامة وأسلوب أوركيد سبا المتميز.</span></li>
+                                <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5"></i> <span>إعداد قوالب رسائل لتأكيد الموعد والتذكير بموعد الجلسة مسبقاً.</span></li>
+                            </ul>
+                            <ul class="space-y-2.5">
+                                <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5"></i> <span>توجيه العميلة مباشرة إلى رابط صفحة حجز الخدمة أو العرض الموسمي.</span></li>
+                                <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5"></i> <span>تنظيم وتصنيف الرسائل وفق اهتمامات العميلات (مساج، عناية بشرة، بكجات).</span></li>
+                                <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-emerald-400 mt-0.5"></i> <span>متابعة نسب التسليم والاستجابة المتاحة لتحسين الرسائل القادمة.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-black/50 border border-emerald-500/20 text-[11px] text-gray-300 flex items-center gap-3">
+                        <i class="fa-solid fa-shield-halved text-emerald-400 text-base shrink-0"></i>
+                        <span>الالتزام التام بسياسات Meta الرسمية وحماية خصوصية العميلات؛ ولا تشمل الباقة إرسالاً عشوائياً غير مصرح به أو رسوم الرسائل الخارجية غير المتفق عليها.</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 04 — INTEGRATED OPERATIONAL ECOSYSTEM                                     -->
+        <!-- ========================================================================= -->
+        <section id="ecosystem" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full bg-kaaf-plum/30 text-kaaf-purpleLight font-black text-xs border border-kaaf-purpleLight/40">التكامل التسويقي</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">منظومة العمل المتكاملة (Integrated Booking Engine)</h2>
+                </div>
+                <span class="text-xs text-kaaf-purpleLight font-mono">Unified Synergy</span>
+            </div>
+
+            <div class="web-card-blue rounded-3xl p-6 sm:p-12 shadow-web-card space-y-8 text-center">
+                <div class="max-w-3xl mx-auto space-y-3">
+                    <h3 class="text-xl sm:text-2xl font-black text-white font-playfair">كيف تتكامل العناصر في رحلة واحدة لحجز خدمات أوركيد سبا؟</h3>
+                    <p class="text-sm text-gray-200 leading-relaxed font-normal">
+                        منصة سلة هي <strong>محطة حجز الموعد</strong>، المحتوى يصنع <strong>الرغبة في الاسترخاء</strong>، الفريق الكريتف يحوّل الخدمات إلى <strong>باقات جذابة</strong>، الإعلانات توسع <strong>الوصول للباحثات عن العناية</strong>، وواتساب يضمن <strong>تأكيد الحضور وتجديد المواعيد</strong>.
+                    </p>
+                </div>
+
+                <!-- Circular Interactive Ecosystem Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 pt-2">
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2 hover:border-kaaf-purpleLight transition">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center mx-auto text-base">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white">Booking Store</div>
+                        <p class="text-[10px] text-gray-400">بوابة الحجز والمواعيد</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2 hover:border-kaaf-purpleLight transition">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center mx-auto text-base">
+                            <i class="fa-solid fa-icons"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white">Social Content</div>
+                        <p class="text-[10px] text-gray-400">صناعة الإلهام والاهتمام</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2 hover:border-kaaf-purpleLight transition">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center mx-auto text-base">
+                            <i class="fa-solid fa-pen-nib"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white">Creative Studio</div>
+                        <p class="text-[10px] text-gray-400">إبراز فخامة الخدمات</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2 hover:border-kaaf-purpleLight transition">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center mx-auto text-base">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white">Paid Campaigns</div>
+                        <p class="text-[10px] text-gray-400">استهداف الباحثات عن السبا</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2 hover:border-kaaf-purpleLight transition">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto text-base">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white">WhatsApp</div>
+                        <p class="text-[10px] text-gray-400">تأكيد وتذكير المواعيد</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-border space-y-2 hover:border-kaaf-purpleLight transition">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center mx-auto text-base">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white">Insights</div>
+                        <p class="text-[10px] text-gray-400">تحسين معدلات الحضور</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-black/60 border border-white/10 text-xs text-slate-300 flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-circle-nodes text-kaaf-purpleLight text-base shrink-0"></i>
+                    <span>منظومة متصلة تضمن عدم إهدار أي مهتمة، وتسهيل انتقالها السلس من مشاهدة الإعلان إلى تأكيد حجز الموعد داخل السبا.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 05 — MARKETING TOOLS ALLOWANCE ($50)                                       -->
+        <!-- ========================================================================= -->
+        <section id="allowance" class="space-y-6">
+            <div class="relative overflow-hidden rounded-3xl p-8 sm:p-12 bg-gradient-to-br from-kaaf-purpleDeep via-black to-kaaf-darkSlate border-2 border-kaaf-purpleLight shadow-glow-purple backdrop-blur-xl">
+                <div class="kaaf-luxury-ribbon absolute top-0 left-0 right-0"></div>
+
+                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                    <div class="space-y-4 text-center lg:text-right">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-kaaf-plum/30 border border-kaaf-purpleLight/50 text-kaaf-purpleLight text-xs font-black">
+                            <i class="fa-solid fa-gift text-pink-300"></i>
+                            <span>ميزة إضافية مخصصة للعرض • Marketing Tools Allowance</span>
+                        </div>
+                        
+                        <h3 class="text-2xl sm:text-3xl font-black text-white font-playfair">
+                            مخصص أدوات تسويقية مساندة | $50 Marketing Tools Allowance
+                        </h3>
+
+                        <p class="text-sm text-gray-200 max-w-2xl leading-relaxed font-medium">
+                            «يتضمن العرض مخصصًا بقيمة <strong>50 دولارًا أمريكيًا</strong> لتوفير أو تغطية أدوات تسويقية وإعلانية مساندة وفق الاحتياج، وبما يتناسب مع طبيعة الحملات والأدوات المتاحة.»
+                        </p>
+
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 text-xs text-pink-200">
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-chart-simple text-kaaf-purpleLight"></i> تحليلات متقدمة</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-wand-magic text-kaaf-purpleLight"></i> أدوات تدعيم التصاميم</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-link text-kaaf-purpleLight"></i> برمجيات التتبع وتسهيل الحجز</span>
+                        </div>
+                    </div>
+
+                    <!-- Highlighted Badge Box -->
+                    <div class="shrink-0 text-center bg-black/80 border-2 border-kaaf-purpleLight rounded-2xl p-6 sm:p-8 shadow-2xl min-w-[260px]">
+                        <span class="text-xs font-bold text-gray-400 block mb-1">المخصص المالي المساند</span>
+                        <div class="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-kaaf-purpleLight via-pink-200 to-white font-playfair tracking-tight">
+                            $50 <span class="text-xl sm:text-2xl text-kaaf-purpleLight font-cairo">USD</span>
+                        </div>
+                        <span class="inline-block mt-2 px-3.5 py-0.5 rounded-full bg-kaaf-plum/30 text-kaaf-purpleLight text-[11px] font-black border border-kaaf-purpleLight/40">
+                            مشمول في الاتفاق التسويقي
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-white/10 text-[11px] text-gray-300 leading-relaxed text-right">
+                    <strong>توضيح تشغيلي مهم:</strong> هذا المبلغ مخصص حصرياً للأدوات التسويقية والبرمجيات المساندة الداعمة لسير العمل، وليس ميزانية إعلانية مفتوحة أو تمويلاً غير محدود لحملات Meta أو TikTok أو Snap. يتم تحديد الأدوات المؤهلة وآلية تفعيل المبلغ وهل هو مخصص لكل باقة أو لفترة التعاقد قبل الاعتماد النهائي للعرض.
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 06 — IMPLEMENTATION TIMELINE & PHASES                                     -->
+        <!-- ========================================================================= -->
+        <section id="timeline" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-full bg-kaaf-plum/30 text-kaaf-purpleLight font-black text-xs border border-kaaf-purpleLight/40">مراحل التنفيذ</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">خارطة الطريق ومراحل التدشين (Roadmap)</h2>
+            </div>
+
+            <div class="web-card-blue rounded-3xl p-6 sm:p-10 shadow-web-card space-y-6">
+                <p class="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
+                    نتبع في KAAF مساراً مرحلياً مدروساً لضمان تهيئة منصة حجز خدمات أوركيد سبا وحملاتها بأعلى معايير الدقة:
+                </p>
+
+                <!-- 6 Step Timeline Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Phase 1 -->
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-kaaf-purpleLight px-2 py-0.5 rounded bg-kaaf-plum/40">المرحلة 01</span>
+                            <i class="fa-solid fa-magnifying-glass text-kaaf-purpleLight text-sm"></i>
+                        </div>
+                        <h4 class="text-sm font-black text-white font-playfair">Discovery & Services Audit</h4>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            حصر خدمات السبا والصالون، مدد الجلسات، الأسعار، وتحديد آلية جدولة المواعيد الأمثل.
+                        </p>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-kaaf-purpleLight px-2 py-0.5 rounded bg-kaaf-plum/40">المرحلة 02</span>
+                            <i class="fa-solid fa-calendar-check text-kaaf-purpleLight text-sm"></i>
+                        </div>
+                        <h4 class="text-sm font-black text-white font-playfair">Booking Hub Setup</h4>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            تهيئة متجر سلة لخدمات الحجز، ربط أداة المواعيد المتاحة، وتصميم صفحات الجلسات باحترافية.
+                        </p>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-kaaf-purpleLight px-2 py-0.5 rounded bg-kaaf-plum/40">المرحلة 03</span>
+                            <i class="fa-solid fa-wand-magic-sparkles text-pink-300 text-sm"></i>
+                        </div>
+                        <h4 class="text-sm font-black text-white font-playfair">Creative Foundation</h4>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            إعداد التوجه البصري المبتكر، كتابة الرسائل التسويقية، ووضع تقويم المحتوى الشهري.
+                        </p>
+                    </div>
+
+                    <!-- Phase 4 -->
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-kaaf-purpleLight px-2 py-0.5 rounded bg-kaaf-plum/40">المرحلة 04</span>
+                            <i class="fa-solid fa-bullhorn text-kaaf-purpleLight text-sm"></i>
+                        </div>
+                        <h4 class="text-sm font-black text-white font-playfair">Campaign Preparation</h4>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            تجهيز وتصميم المواد الإعلانية، صياغة رسائل واتساب وتأكيد المواعيد، وضبط الاستهداف.
+                        </p>
+                    </div>
+
+                    <!-- Phase 5 -->
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-emerald-300 px-2 py-0.5 rounded bg-emerald-500/20">المرحلة 05</span>
+                            <i class="fa-solid fa-rocket text-emerald-400 text-sm"></i>
+                        </div>
+                        <h4 class="text-sm font-black text-white font-playfair">Launch & Optimization</h4>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            إطلاق الأنشطة التسويقية، استقبال الحجوزات، وبدء تحسين مسار تحويل العميلات.
+                        </p>
+                    </div>
+
+                    <!-- Phase 6 -->
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-emerald-300 px-2 py-0.5 rounded bg-emerald-500/20">المرحلة 06</span>
+                            <i class="fa-solid fa-chart-line text-emerald-400 text-sm"></i>
+                        </div>
+                        <h4 class="text-sm font-black text-white font-playfair">Review & Improve</h4>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            تحليل البيانات المستخرجة، إعداد التوصيات التطويرية، وتحديث خطط العمل للمراحل اللاحقة.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 07 — KPI & REPORTING DASHBOARD                                            -->
+        <!-- ========================================================================= -->
+        <section id="dashboard" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-full bg-kaaf-plum/30 text-kaaf-purpleLight font-black text-xs border border-kaaf-purpleLight/40">الشفافية والقياس</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">لوحة مؤشرات الأداء والتقارير (KPIs & Analytics)</h2>
+            </div>
+
+            <div class="web-card-blue rounded-3xl p-6 sm:p-10 shadow-web-card space-y-6">
+                <p class="text-sm text-gray-300">
+                    نعتمد على مؤشرات واضحة تمنح إدارة <strong>أوركيد سبا</strong> رؤية دورية دقيقة ومستمرة حول حركة الحجوزات والحسابات:
+                </p>
+
+                <!-- Visual KPI Mock Dashboard -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 pt-1">
+                    <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-1 text-center">
+                        <i class="fa-solid fa-users text-kaaf-purpleLight text-base"></i>
+                        <div class="text-xs font-bold text-white">الوصول والتفاعل</div>
+                        <p class="text-[10px] text-gray-400">Reach & Engagement</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-1 text-center">
+                        <i class="fa-solid fa-calendar-check text-pink-300 text-base"></i>
+                        <div class="text-xs font-bold text-white">زيارات صفحة المواعيد</div>
+                        <p class="text-[10px] text-gray-400">Booking Page Traffic</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-1 text-center">
+                        <i class="fa-solid fa-mouse text-kaaf-purpleLight text-base"></i>
+                        <div class="text-xs font-bold text-white">النقرات الإعلانية</div>
+                        <p class="text-[10px] text-gray-400">Ad Click-Throughs</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-1 text-center">
+                        <i class="fa-solid fa-comments text-pink-300 text-base"></i>
+                        <div class="text-xs font-bold text-white">طلبات الحجز المباشرة</div>
+                        <p class="text-[10px] text-gray-400">Booking Inquiries</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-1 text-center">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                        <div class="text-xs font-bold text-white">تفاعل رسائل واتساب</div>
+                        <p class="text-[10px] text-gray-400">Confirmations & Opens</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-1 text-center">
+                        <i class="fa-solid fa-spa text-emerald-400 text-base"></i>
+                        <div class="text-xs font-bold text-white">مؤشرات اكتمال الجلسات</div>
+                        <p class="text-[10px] text-gray-400">Service Completion</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-black/50 border border-white/10 text-xs text-slate-300 flex items-center gap-3">
+                    <i class="fa-solid fa-circle-info text-kaaf-purpleLight text-base shrink-0"></i>
+                    <span><strong>تنويه مهني:</strong> لا تقدم KAAF وعوداً بأرقام حجوزات حتمية مسبقة؛ فالنتائج الحقيقية تعتمد على تناغم التسويق مع جودة خدمة الأخصائيات والأسعار وتجربة العميلة المباشرة داخل السبا.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 08 — PACKAGES & INVESTMENT (PRICING SECTION)                              -->
+        <!-- ========================================================================= -->
+        <section id="packages" class="space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-kaaf-plum/30 border border-kaaf-purpleLight/50 text-kaaf-purpleLight text-xs font-black">
+                    <i class="fa-solid fa-gem text-pink-300"></i>
+                    <span>الاستثمار المالي • Official Investment Packages</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight font-playfair">خيارات الباقات الاستثمارية لأوركيد سبا</h2>
+                <p class="text-xs sm:text-sm text-gray-300">هيكل استثماري متوازن ومصمم لدعم الانطلاق، والنمو، وبناء الشراكات طويلة الأجل</p>
+            </div>
+
+            <!-- Three Luxury Packages Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                
+                <!-- Package 1: 1 Month -->
+                <div class="web-card-blue p-8 rounded-3xl flex flex-col justify-between space-y-6 shadow-web-card border-t-4 border-t-kaaf-purpleLight">
+                    <div class="space-y-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-kaaf-purpleLight font-ibm uppercase tracking-wider">الباقة الأولى</span>
+                            <span class="px-3 py-1 rounded-full bg-white/10 text-gray-300 text-xs font-bold border border-white/10">شهر واحد</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-black text-white font-playfair">تجربة الانطلاق</h3>
+                            <p class="text-xs text-gray-300 mt-2 leading-relaxed">
+                                مخصصة لتأسيس منصة حجز خدمات السبا بسلة وتدشين الحضور المبدئي واختبار استجابة العميلات للحملات الأولى.
+                            </p>
+                        </div>
+
+                        <!-- Highlights List -->
+                        <ul class="space-y-2.5 text-xs text-gray-300 pt-2 border-t border-white/10">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>تأسيس متجر سلة مخصص لحجز خدمات السبا والصالون.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>إدارة ونشر المحتوى على منصات السوشيال ميديا المعتمدة.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>دعم الفريق الكريتف لتطوير التصاميم والمفاهيم البصرية.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>إعداد وتشغيل الحملات الإعلانية ومتابعة أداء الحجوزات.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>إعداد حملات تواصل واتساب لتأكيد الحجوزات وفق القواعد المعتمدة.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-6 border-t border-white/10 space-y-4">
+                        <div>
+                            <span class="text-xs text-gray-400 block font-medium">الاستثمار الإجمالي</span>
+                            <div class="text-4xl font-black text-white font-playfair">
+                                3,500 <span class="text-xl text-kaaf-purpleLight font-cairo">SAR</span>
+                            </div>
+                            <span class="text-[11px] text-gray-400 block mt-1">3,500 ريال سعودي (لمدة شهر واحد)</span>
+                        </div>
+                        <a href="https://wa.me/966558029554?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20KAAF%20Group%D8%8C%20%D9%86%D8%AD%D9%86%20%D8%A3%D9%88%D8%B1%D9%83%D9%8A%D8%AF%20%D8%B3%D8%A8%D8%A7%20%D9%88%D9%86%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A8%D8%AF%D8%A1%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D8%A7%D9%86%D8%B7%D9%84%D8%A7%D9%82%20(3,500%20SAR)" target="_blank" class="w-full py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-2 transition border border-white/15">
+                            <span>ابدأ رحلة أوركيد سبا</span>
+                            <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Package 2: 3 Months (Featured Best Value) -->
+                <div class="web-card-cyan p-8 sm:p-10 rounded-3xl flex flex-col justify-between space-y-6 shadow-glow-purple border-2 border-kaaf-purpleLight relative lg:-translate-y-3">
+                    <div class="absolute -top-3.5 right-8 px-4 py-1 rounded-full bg-gradient-to-r from-kaaf-purpleLight via-pink-300 to-purple-200 text-black text-[11px] font-black uppercase tracking-wider shadow-md">
+                        اختيار مميز للاستمرارية
+                    </div>
+
+                    <div class="space-y-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-kaaf-purpleLight font-ibm uppercase tracking-wider">الباقة الثانية</span>
+                            <span class="px-3 py-1 rounded-full bg-kaaf-plum/40 text-kaaf-purpleLight text-xs font-bold border border-kaaf-purpleLight/40">3 أشهر (النمو والتوسع)</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-black text-white font-playfair">النمو والتوسع</h3>
+                            <p class="text-xs text-gray-200 mt-2 leading-relaxed">
+                                الخيار الأفضل لبناء استمرارية تسويقية، ومتابعة تراكمية لنتائج الإعلانات، وزيادة الإقبال على حجز الجلسات باستمرار.
+                            </p>
+                        </div>
+
+                        <!-- Highlights List -->
+                        <ul class="space-y-2.5 text-xs text-gray-200 pt-2 border-t border-kaaf-purpleLight/30">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>تأسيس بوابة حجز سلة (خدمة تأسيسية) مع استمرار تحديث الخدمات.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>إدارة متواصلة للمحتوى والسوشيال ميديا طوال مدة التعاقد (3 أشهر).</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>تطوير مستمر للأفكار الإبداعية والمواد التسويقية من فريق الكريتف.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>تحسين دوري للحملات الإعلانية ومتابعة مسار الحجز حتى الزيارة الفعلية.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>حملات واتساب لتأكيد المواعيد وعروض المواسم مع قياس التفاعل.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-6 border-t border-kaaf-purpleLight/30 space-y-4">
+                        <div>
+                            <span class="text-xs text-kaaf-purpleLight block font-medium">الاستثمار الإجمالي للفترة</span>
+                            <div class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-kaaf-purpleLight via-pink-200 to-white font-playfair">
+                                6,500 <span class="text-xl text-kaaf-purpleLight font-cairo">SAR</span>
+                            </div>
+                            <span class="text-[11px] text-kaaf-purpleLight/90 block mt-1">6,500 ريال سعودي إجمالاً لكامل الـ 3 أشهر</span>
+                        </div>
+                        <a href="https://wa.me/966558029554?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20KAAF%20Group%D8%8C%20%D9%86%D8%AD%D9%86%20%D8%A3%D9%88%D8%B1%D9%83%D9%8A%D8%AF%20%D8%B3%D8%A8%D8%A7%20%D9%88%D9%86%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D8%B9%D8%AA%D9%85%D8%A7%D8%AF%20%D8%A8%D8%A7%D9%82%D8%A9%203%20%D8%A3%D8%B4%D9%87%D8%B1%20(6,500%20SAR)" target="_blank" class="w-full py-4 rounded-xl bg-gradient-to-r from-kaaf-plum via-purple-600 to-kaaf-purpleLight text-white font-black text-xs flex items-center justify-center gap-2 hover:brightness-110 shadow-glow-purple transition">
+                            <span>اعتماد باقة 3 أشهر</span>
+                            <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Package 3: 6 Months -->
+                <div class="web-card-blue p-8 rounded-3xl flex flex-col justify-between space-y-6 shadow-web-card border-t-4 border-t-kaaf-purpleLight relative">
+                    <div class="absolute -top-3.5 right-8 px-4 py-1 rounded-full bg-kaaf-plum/50 text-kaaf-purpleLight text-[11px] font-bold uppercase tracking-wider border border-kaaf-purpleLight/40">
+                        رؤية طويلة المدى
+                    </div>
+
+                    <div class="space-y-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-kaaf-purpleLight font-ibm uppercase tracking-wider">الباقة الثالثة</span>
+                            <span class="px-3 py-1 rounded-full bg-white/10 text-gray-300 text-xs font-bold border border-white/10">6 أشهر</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-black text-white font-playfair">الشراكة طويلة المدى</h3>
+                            <p class="text-xs text-gray-300 mt-2 leading-relaxed">
+                                تتيح فترة أطول لترسيخ مكانة العلامة التجارية وتطوير أسلوب المحتوى وتحسين تجربة حجز المواعيد على مدار فصول السنة.
+                            </p>
+                        </div>
+
+                        <!-- Highlights List -->
+                        <ul class="space-y-2.5 text-xs text-gray-300 pt-2 border-t border-white/10">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>تأسيس منصة الحجز وتطويرها بما يلائم العروض ومواسم الإجازات.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>تغطية تشغيلية كاملة للسوشيال ميديا والمحتوى لمدة 6 أشهر.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>دراسة مواسم العناية والأعياد وتجهيز باقات مسبقة الحجز لها.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>إدارة وتحسين متراكم للإعلانات الرقمية لخفض تكلفة اكتساب الحجز.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-kaaf-purpleLight mt-0.5"></i>
+                                <span>بناء قاعدة تواصل متينة ومستدامة عبر واتساب مع عميلات السبا الدائمات.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-6 border-t border-white/10 space-y-4">
+                        <div>
+                            <span class="text-xs text-gray-400 block font-medium">الاستثمار الإجمالي للفترة</span>
+                            <div class="text-4xl font-black text-white font-playfair">
+                                9,500 <span class="text-xl text-kaaf-purpleLight font-cairo">SAR</span>
+                            </div>
+                            <span class="text-[11px] text-gray-400 block mt-1">9,500 ريال سعودي إجمالاً لكامل الـ 6 أشهر</span>
+                        </div>
+                        <a href="https://wa.me/966558029554?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20KAAF%20Group%D8%8C%20%D9%86%D8%AD%D9%86%20%D8%A3%D9%88%D8%B1%D9%83%D9%8A%D8%AF%20%D8%B3%D8%A8%D8%A7%20%D9%88%D9%86%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D8%B9%D8%AA%D9%85%D8%A7%D8%AF%20%D8%A8%D8%A7%D9%82%D8%A9%206%20%D8%A3%D8%B4%D9%87%D8%B1%20(9,500%20SAR)" target="_blank" class="w-full py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-2 transition border border-white/15">
+                            <span>اعتماد باقة 6 أشهر</span>
+                            <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Pricing Notes & Clarifications -->
+            <div class="p-5 rounded-2xl bg-black/60 border border-kaaf-border text-xs text-slate-300 leading-relaxed space-y-2">
+                <div class="flex items-center gap-2 text-kaaf-purpleLight font-bold">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>ملاحظات والتزامات مالية معتمدة:</span>
+                </div>
+                <p>
+                    • الأسعار المعروضة نهائية ومحددة بالريال السعودي (SAR) وتشمل خدمات KAAF المذكورة؛ ولا تشمل أي ميزانيات إعلانية مدفوعة تُسدد لمنصات الإعلانات مباشرة. <br>
+                    • تأسيس متجر حجز المواعيد على سلة يمثل خدمة تأسيسية تنفذ لمرة واحدة، بينما تستمر الخدمات التسويقية والتشغيلية والإدارية طوال مدة الباقة المختارة. <br>
+                    • يتم تثبيت التفاصيل التشغيلية، والكميات، والمنصات المحددة في وثيقة نطاق العمل الرسمية الملحقة بالعقد.
+                </p>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 09 — WHY KAAF GROUP?                                                      -->
+        <!-- ========================================================================= -->
+        <section id="why-kaaf" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-full bg-kaaf-plum/30 text-kaaf-purpleLight font-black text-xs border border-kaaf-purpleLight/40">شريككم الاستراتيجي</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">لماذا KAAF Group؟ — شريكك في بناء تجربة رقمية متكاملة</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="web-card-blue p-6 rounded-3xl space-y-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                    </div>
+                    <h3 class="text-base font-black text-white">الجمع بين التصميم والتسويق والتقنية</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        نوفر حلاً متكاملاً يلغي الحاجة للتعامل مع جهات متعددة؛ فمنصة الحجز والإعلانات والمحتوى يُصاغون جميعاً بروح وهوية واحدة.
+                    </p>
+                </div>
+
+                <div class="web-card-blue p-6 rounded-3xl space-y-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-arrows-split-up-and-left"></i>
+                    </div>
+                    <h3 class="text-base font-black text-white">ربط المتجر بالحملات في توجه موحد</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        لا نطلق إعلانات بمعزل عن المتجر؛ بل نهيئ صفحات الحجز لتستقبل الزائرات بتجربة واضحة تسرّع اتخاذ قرار حجز الجلسة.
+                    </p>
+                </div>
+
+                <div class="web-card-blue p-6 rounded-3xl space-y-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-base font-black text-white">فريق إبداعي يطور الرسائل والأفكار</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        نبتعد تماماً عن القوالب الجاهزة أو النشر الروتيني؛ نبتكر زوايا بصرية تبرز فخامة أوركيد سبا وتخاطب عميلاتكم بذوق رفيع.
+                    </p>
+                </div>
+
+                <div class="web-card-blue p-6 rounded-3xl space-y-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-base font-black text-white">متابعة البيانات وتحويلها لقرارات</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        نقرأ تفاعل الزائرات ومؤشرات الحملات باستمرار، ونعدل الرسائل التسويقية لزيادة الإقبال على الفترات الأقل إشغالاً في السبا.
+                    </p>
+                </div>
+
+                <div class="web-card-blue p-6 rounded-3xl space-y-2.5 sm:col-span-2 lg:col-span-2">
+                    <div class="w-10 h-10 rounded-xl bg-kaaf-plum/40 text-kaaf-purpleLight flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-handshake-simple"></i>
+                    </div>
+                    <h3 class="text-base font-black text-white">تنظيم واضح للتوقعات ونطاق العمل</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        وضوح تام منذ اليوم الأول حول المسؤوليات والمراحل والمخرجات دون وعود وهمية؛ نعمل كفريق تسويقي ممتد ومخلص لأهداف علامتكم.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 10 — CLOSING & CALL TO ACTION (ACTION SECTION)                            -->
+        <!-- ========================================================================= -->
+        <section id="contact-action" class="relative rounded-[32px] overflow-hidden p-8 sm:p-16 bg-gradient-to-br from-kaaf-purpleDeep via-black to-kaaf-dark border border-kaaf-border text-center space-y-8 shadow-web-card">
+            <div class="kaaf-luxury-ribbon absolute top-0 left-0 right-0"></div>
+
+            <div class="max-w-2xl mx-auto space-y-4">
+                <div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-kaaf-purpleLight shadow-glow-purple mx-auto p-0.5 bg-black">
+                    <img src="https://i.ibb.co/qLQcG9vr/Whats-App-Image-2026-08-26-at-11-29-58.jpg" alt="KAAF Group" class="w-full h-full object-cover rounded-xl">
+                </div>
+
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-kaaf-plum/30 border border-kaaf-purpleLight/40 text-kaaf-purpleLight text-xs font-bold font-ibm">
+                    <i class="fa-solid fa-spa"></i>
+                    <span>KAAF Group × Orchid Spa • الخطوة القادمة</span>
+                </div>
+
+                <h3 class="text-3xl sm:text-4xl font-black text-white leading-tight font-playfair">
+                    الخطوة القادمة لأوركيد سبا تبدأ هنا
+                </h3>
+
+                <p class="text-sm sm:text-base text-gray-200 leading-relaxed max-w-xl mx-auto font-medium">
+                    «نطمح في <strong>KAAF</strong> إلى بناء تجربة رقمية متكاملة تعكس قيمة <strong>أوركيد سبا</strong>، وتمنح علامتكم حضورًا أكثر اتساقًا، وتجربة حجز مواعيد سهلة وفاخرة، وقنوات تسويقية مترابطة تدعم النمو على المدى الطويل.»
+                </p>
+            </div>
+
+            <!-- Action Buttons Row -->
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#packages" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-kaaf-plum via-purple-600 to-kaaf-purpleLight text-white font-black text-xs shadow-xl flex items-center gap-3 transition-transform hover:-translate-y-0.5 hover:brightness-110">
+                    <i class="fa-solid fa-gem"></i>
+                    <span>اعتماد الباقة المناسبة</span>
+                    <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                </a>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 text-xs text-gray-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div>عرض خدمات حجز المواعيد والتسويق الإبداعي • مُعد خصيصًا لـ Orchid Spa | أوركيد سبا</div>
+                <div class="font-mono text-gray-400">KAAF Group for Marketing, Software & Media Solutions • All Rights Reserved</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- INTERACTIVE HTML5 CANVAS SCRIPT -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('interactive-bg-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width, height;
+            let particles = [];
+            const particleCount = 42;
+            const colors = ['#7e22ce', '#c084fc', '#581c87', '#ec4899', '#D4AF37'];
+
+            let mouse = {
+                x: null,
+                y: null,
+                radius: 140
+            };
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+
+            window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', function(e) {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+            window.addEventListener('mouseout', function() {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            // Touch events for mobile
+            window.addEventListener('touchmove', function(e) {
+                if (e.touches.length > 0) {
+                    mouse.x = e.touches[0].clientX;
+                    mouse.y = e.touches[0].clientY;
+                }
+            }, { passive: true });
+            window.addEventListener('touchend', function() {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.7;
+                    this.vy = (Math.random() - 0.5) * 0.7;
+                    this.radius = Math.random() * 2.2 + 1.2;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.baseAlpha = Math.random() * 0.4 + 0.25;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    // Bounce on screen edges
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                    // Mouse interaction
+                    if (mouse.x !== null && mouse.y !== null) {
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < mouse.radius) {
+                            let force = (mouse.radius - distance) / mouse.radius;
+                            let directionX = (dx / distance) * force * 2.5;
+                            let directionY = (dy / distance) * force * 2.5;
+                            this.x -= directionX;
+                            this.y -= directionY;
+                        }
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = this.baseAlpha;
+                    ctx.fill();
+                }
+            }
+
+            function init() {
+                resize();
+                particles = [];
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function connect() {
+                const maxDistance = 135;
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a + 1; b < particles.length; b++) {
+                        let dx = particles[a].x - particles[b].x;
+                        let dy = particles[a].y - particles[b].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < maxDistance) {
+                            let opacity = (1 - (distance / maxDistance)) * 0.2;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.strokeStyle = '#c084fc';
+                            ctx.globalAlpha = opacity;
+                            ctx.lineWidth = 0.9;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                ctx.globalAlpha = 1;
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                connect();
+
+                requestAnimationFrame(animate);
+            }
+
+            window.onload = function() {
+                init();
+                animate();
+            };
+        })();
+    </script>
+</body>
+</html>
